@@ -117,13 +117,6 @@
             #end
             <testcase classname="$enc.xml($vuln.name)" name="$enc.xml($vulnerableName)">
                 <skipped message="$enc.xml($id.notes)"/>
-            #if($vuln.unscoredSeverity)
-                <failure message="$enc.xml($vuln.unscoredSeverity)"/>
-            #elseif($vuln.cvssV3 && $vuln.cvssV3.baseSeverity)
-                <failure message="cvssV3: $enc.xml($vuln.cvssV3.baseSeverity), score: $enc.xml($vuln.cvssV3.baseScore) ($enc.xml($vuln.cvssV3.toString()))"/>
-            #elseif($vuln.cvssV2 && $vuln.cvssV2.severity)
-                <failure message="cvssV2: $enc.xml($vuln.cvssV2.severity), score: $enc.xml($vuln.cvssV2.score) ($enc.xml($vuln.cvssV2.toString()))"/>
-            #end
                 <system-out>$enc.xml($vuln.description)</system-out>
                 <system-err>location: $enc.xml($dependency.FilePath)</system-err>
             </testcase>
