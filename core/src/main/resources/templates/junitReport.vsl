@@ -105,8 +105,6 @@
         </testcase>
         #end
         #foreach($vuln in $dependency.getSuppressedVulnerabilities())
-        <testcase classname="$enc.xml($vuln.name)" name="$enc.xml($vulnerableName)">
-            <skipped message="$enc.xml($id.notes)"/>
             #if($dependency.getSoftwareIdentifiers().size()>0)
                 #set($vulnerableName=$dependency.getSoftwareIdentifiers().toArray()[0])
             #elseif ($vuln.getSource().name().equals("NVD"))
@@ -118,6 +116,7 @@
                 #set($vulnerableName="")
             #end
             <testcase classname="$enc.xml($vuln.name)" name="$enc.xml($vulnerableName)">
+                <skipped message="$enc.xml($id.notes)"/>
             #if($vuln.unscoredSeverity)
                 <failure message="$enc.xml($vuln.unscoredSeverity)"/>
             #elseif($vuln.cvssV3 && $vuln.cvssV3.baseSeverity)
@@ -125,9 +124,9 @@
             #elseif($vuln.cvssV2 && $vuln.cvssV2.severity)
                 <failure message="cvssV2: $enc.xml($vuln.cvssV2.severity), score: $enc.xml($vuln.cvssV2.score) ($enc.xml($vuln.cvssV2.toString()))"/>
             #end
-            <system-out>$enc.xml($vuln.description)</system-out>
-            <system-err>location: $enc.xml($dependency.FilePath)</system-err>
-        </testcase>
+                <system-out>$enc.xml($vuln.description)</system-out>
+                <system-err>location: $enc.xml($dependency.FilePath)</system-err>
+            </testcase>
         #end
     </testsuite>
     #end
